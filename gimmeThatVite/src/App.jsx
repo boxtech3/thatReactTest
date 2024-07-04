@@ -24,7 +24,7 @@ function App() {
 
     //initialize renderer
     //takes in canvas element
-    const canvas = document.getElementById('myThreeJsCanvas');
+    const canvas = document.getElementById('thatThreeCanvas');
     const renderer = new THREE.WebGLRenderer({
       canvas,
       //set antialiasing to be true so 3d objects look smooth
@@ -50,8 +50,20 @@ function App() {
     //set the position of the spotlight
     spottyLighting.position.set(0, 65, 33);
 
+    //now to add an object
+    const boxGeo = new THREE.BoxGeometry(17, 17, 17);
+    const boxMatter = new THREE.MeshNormalMaterial();
+    const boxMesh = new THREE.Mesh(boxGeo, boxMatter);
+    //add it to the scene
+    scene.add(boxMesh);
+
+
+
     //now to animate it
     const animation = () => {
+      //add rotation to the box
+      boxMesh.rotation.x += 0.01;
+      boxMesh.rotation.y += 0.01; 
       //take in the renderer and call the render function
       renderer.render(scene, camera);
       //run this ^ function every single frame
@@ -63,17 +75,6 @@ function App() {
 }, []);
 
 
-
-
-
-
-
-
-
-
-
-
-
   return (
     <>
       <div>
@@ -81,6 +82,7 @@ function App() {
         <canvas id='thatThreeCanvas' />
       </div>
     </>
+
   )
 
 
